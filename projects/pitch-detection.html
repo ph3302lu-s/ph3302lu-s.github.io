@@ -203,7 +203,20 @@
                 searches for the first local minimum below a threshold of
                 <strong>0.15</strong>.
             </p>
+<figure class="project-figure">
 
+    <img
+        src="../images/pitch-detection/cmndf_plot.png"
+        alt="Cumulative mean normalized difference function for a human voice">
+
+    <figcaption>
+        CMNDF for a human voice at approximately 165 Hz. Minima occur
+        at the fundamental period and its multiples. Selecting the global
+        minimum would incorrectly identify a subharmonic, which motivated
+        selecting the first local minimum below the YIN threshold.
+    </figcaption>
+
+</figure>
             <p>
                 Once the best lag is found, the pitch is calculated as:
             </p>
@@ -264,7 +277,20 @@
                 sensitive to individual estimates, groups of five pitch
                 detections were averaged before updating the player's position.
             </p>
+<figure class="project-figure gameplay-figure">
 
+    <img
+        src="../images/pitch-detection/pitchfish_gameplay.png"
+        alt="PitchFish game during gameplay">
+
+    <figcaption>
+        PitchFish during gameplay. The detected vocal pitch controls
+        the vertical position of the player bar while the fish moves
+        independently. Keeping the fish inside the controlled region
+        increases the progress bar.
+    </figcaption>
+
+</figure>
 
             <div class="code-block">
 <pre><code>// Find first local minimum below the YIN threshold
