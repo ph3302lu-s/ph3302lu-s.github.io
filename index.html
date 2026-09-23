@@ -4,25 +4,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Philip Lundin | Portfolio</title>
+
+    <title>Philip Lundin | Signal Processing Engineer</title>
+
+    <meta name="description"
+          content="Philip Lundin - Electrical Engineering M.Sc. student specializing in signal processing, machine learning and embedded systems.">
+
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <h1>Philip Lundin</h1>
+<div class="container">
 
-    <p>
-        M.Sc. Student in Electrical Engineering at Lund University
-    </p>
+    <nav>
+        <div class="logo">Philip Lundin</div>
 
-    <p>
-        Signal Processing · Machine Learning · Embedded Systems
-    </p>
+        <div class="nav-links">
+            <a href="#projects">Projects</a>
+            <a href="#about">About</a>
+            <a href="#">CV</a>
+            <a href="#">LinkedIn</a>
+        </div>
+    </nav>
 
-    <h2>Projects</h2>
 
-    <p>Portfolio under construction.</p>
+    <main>
+
+        <section class="hero">
+
+            <p class="hero-label">
+                Electrical Engineering · Lund University
+            </p>
+
+            <h1>
+                Signal Processing & Machine Learning
+            </h1>
+
+            <p class="hero-description">
+                Fifth-year M.Sc. student in Electrical Engineering at Lund
+                University (LTH), specializing in signal processing.
+                Interested in developing algorithms that extract useful
+                information from real-world signals and data.
+            </p>
+
+            <div class="hero-links">
+                <a href="#projects" class="button">
+                    View projects
+                </a>
+
+                <a href="#about" class="button button-secondary">
+                    About me
+                </a>
+            </div>
+
+        </section>
+
+
+        <section id="projects">
+
+            <h2 class="section-title">Selected Projects</h2>
+
+            <div class="project-grid">
+
+                <article class="project-card">
+                    <h3>Real-Time Pitch Detection</h3>
+
+                    <p>
+                        Real-time pitch estimation using the YIN algorithm,
+                        developed and integrated into an Android application.
+                    </p>
+
+                    <div class="tags">
+                        <span class="tag">Signal Processing</span>
+                        <span class="tag">YIN</span>
+                        <span class="tag">Android</span>
+                    </div>
+                </article>
+
+
+                <article class="project-card">
+                    <h3>Atrial Fibrillation Detection</h3>
+
+                    <p>
+                        Detection and classification of atrial fibrillation
+                        from RR intervals using signal processing and
+                        machine-learning methods.
+                    </p>
+
+                    <div class="tags">
+                        <span class="tag">ECG</span>
+                        <span class="tag">Machine Learning</span>
+                        <span class="tag">Random Forest</span>
+                    </div>
+                </article>
+
+
+                <article class="project-card">
+                    <h3>District Heating Load Forecasting</h3>
+
+                    <p>
+                        Time-series modelling of district-heating demand using
+                        temperature measurements and Box-Jenkins models.
+                    </p>
+
+                    <div class="tags">
+                        <span class="tag">Time Series</span>
+                        <span class="tag">MATLAB</span>
+                        <span class="tag">Forecasting</span>
+                    </div>
+                </article>
+
+
+                <article class="project-card">
+                    <h3>Digital Signal Processing & OFDM</h3>
+
+                    <p>
+                        FIR/IIR filtering, echo cancellation and implementation
+                        of an OFDM communication chain for a multipath channel.
+                    </p>
+
+                    <div class="tags">
+                        <span class="tag">DSP</span>
+                        <span class="tag">OFDM</span>
+                        <span class="tag">MATLAB</span>
+                    </div>
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <section id="about">
+
+            <h2 class="section-title">About Me</h2>
+
+            <p class="about-text">
+                I am a fifth-year M.Sc. student in Electrical Engineering at
+                Lund University (LTH), specializing in signal processing.
+                My interests include digital signal processing, statistical
+                modelling, machine learning and embedded systems.
+            </p>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+        <p>© 2026 Philip Lundin</p>
+    </footer>
+
+</div>
 
 </body>
-
 </html>
