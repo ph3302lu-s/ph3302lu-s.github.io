@@ -185,3 +185,8 @@ footer {
         min-height: 65vh;
     }
 }
+.project-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
