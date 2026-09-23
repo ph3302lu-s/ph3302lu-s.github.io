@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Atrial Fibrillation Detection | Philip Lundin</title>
+
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+
+            <div class="logo">
+                <a href="../index.html">Philip Lundin</a>
+            </div>
+
+            <div class="nav-links">
+                <a href="../index.html#projects">Projects</a>
+                <a href="../index.html#about">About</a>
+                <a href="../Philip_Lundin_CV.pdf" target="_blank">CV</a>
+                <a href="https://www.linkedin.com/in/philip-lundin-190a9a296/"
+                   target="_blank">
+                    LinkedIn
+                </a>
+            </div>
+
+        </div>
+    </nav>
+
+
+    <main class="container project-page">
+
+        <a href="../index.html#projects" class="back-link">
+            ← Back to projects
+        </a>
+
+
+        <!-- Project Hero -->
+        <section class="project-hero">
+
+            <p class="eyebrow">
+                Medical Signal Processing · LTH · 2026
+            </p>
+
+            <h1>Atrial Fibrillation Detection</h1>
+
+            <p class="project-lead">
+                Detection of atrial fibrillation from RR-interval data using
+                statistical feature extraction, ROC-based thresholding and
+                machine learning.
+            </p>
+
+            <div class="tags project-tags">
+                <span class="tag">Medical Signal Processing</span>
+                <span class="tag">Python</span>
+                <span class="tag">Feature Extraction</span>
+                <span class="tag">Random Forest</span>
+                <span class="tag">ROC Analysis</span>
+            </div>
+
+        </section>
+
+
+        <!-- Overview -->
+        <section class="project-section">
+
+            <p class="section-number">OVERVIEW</p>
+
+            <h2>Detecting AF from beat-to-beat variability</h2>
+
+            <p>
+                Atrial fibrillation is associated with irregular ventricular
+                rhythm, which can be observed through changes in the intervals
+                between consecutive heart beats. In this project, RR intervals
+                extracted from ECG recordings were used to identify periods of
+                atrial fibrillation.
+            </p>
+
+            <p>
+                Two approaches were implemented and compared: a simple,
+                interpretable detector based on the coefficient of variation,
+                and a multi-feature Random Forest classifier.
+            </p>
+
+            <div class="project-facts">
+
+                <div>
+                    <span class="fact-label">Course</span>
+                    Medical Signal Processing
+                </div>
+
+                <div>
+                    <span class="fact-label">Data</span>
+                    RR intervals
+                </div>
+
+                <div>
+                    <span class="fact-label">Language</span>
+                    Python
+                </div>
+
+                <div>
+                    <span class="fact-label">Models</span>
+                    CV + Random Forest
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Problem -->
+        <section class="project-section">
+
+            <p class="section-number">01</p>
+
+            <h2>The Problem</h2>
+
+            <p>
+                Long-term ECG monitoring can produce large amounts of data,
+                making manual identification of atrial fibrillation episodes
+                impractical. An automatic detector therefore needs to identify
+                irregular rhythm while avoiding false alarms caused by other
+                variations in heart rhythm.
+            </p>
+
+            <p>
+                The project used RR-interval data from seven patient recordings.
+                Patients 1–4 were used for training and parameter selection,
+                while patients 5–7 were reserved as test recordings.
+            </p>
+
+            <div class="highlight-box">
+
+                <span>Engineering challenge</span>
+
+                <p>
+                    AF causes increased rhythm irregularity, but high RR
+                    variability is not unique to AF. A detector must therefore
+                    balance sensitivity to AF against false positive detections.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- Processing Pipeline -->
+        <section class="project-section">
+
+            <p class="section-number">02</p>
+
+            <h2>Signal Processing Pipeline</h2>
+
+            <p>
+                The RR-interval signal was first preprocessed using a
+                three-sample median filter to reduce the influence of isolated
+                abnormal RR values such as ectopic beats.
+            </p>
+
+            <div class="af-pipeline">
+
+                <div class="pipeline-step">
+                    <span>01</span>
+                    <strong>RR intervals</strong>
+                    <p>Beat-to-beat timing extracted from ECG recordings.</p>
+                </div>
+
+                <div class="pipeline-arrow">→</div>
+
+                <div class="pipeline-step">
+                    <span>02</span>
+                    <strong>Median filtering</strong>
+                    <p>Kernel size 3 removes isolated abnormal values.</p>
+                </div>
+
+                <div class="pipeline-arrow">→</div>
+
+                <div class="pipeline-step">
+                    <span>03</span>
+                    <strong>Windowing</strong>
+                    <p>Local segments used for feature extraction.</p>
+                </div>
+
+                <div class="pipeline-arrow">→</div>
+
+                <div class="pipeline-step">
+                    <span>04</span>
+                    <strong>Classification</strong>
+                    <p>Threshold detector or Random Forest.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CV detector -->
+        <section class="project-section">
+
+            <p class="section-number">03</p>
+
+            <h2>CV-Based Threshold Detector</h2>
+
+            <p>
+                The first approach uses the coefficient of variation as a
+                measure of relative RR-interval variability.
+            </p>
+
+            <div class="equation">
+                CV = σ<sub>RR</sub> / μ<sub>RR</sub>
+            </div>
+
+            <p>
+                Features were calculated using overlapping windows of 30 RR
+                intervals with a step size of one. Because AF typically creates
+                irregular ventricular rhythm, higher CV values tend to indicate
+                a greater probability of AF.
+            </p>
+
+            <h3 class="subheading">Threshold selection</h3>
+
+            <p>
+                CV values from patients 1–4 were normalized using only the
+                training-data mean and standard deviation. A ROC curve was then
+                generated and the decision threshold was selected by maximizing
+                the Youden index.
+            </p>
+
+            <div class="equation">
+                J = sensitivity + specificity − 1
+            </div>
+
+            <p>
+                Window predictions were mapped back to individual RR intervals.
+                Since the windows overlap, each interval may receive multiple
+                predictions. Majority voting was used to obtain the final
+                classification.
+            </p>
+
+        </section>
+
+
+        <!-- Random Forest -->
+        <section class="project-section">
+
+            <p class="section-number">04</p>
+
+            <h2>Multi-Feature Random Forest</h2>
+
+            <p>
+                The second model investigates whether multiple RR-derived
+                features can distinguish AF-related irregularity from other
+                variations more effectively than a single variability measure.
+            </p>
+
+            <div class="method-grid">
+
+                <div class="method-card">
+                    <span>01</span>
+                    <h3>Mean RR</h3>
+                    <p>
+                        Represents the average beat-to-beat interval and
+                        indirectly captures changes in heart rate.
+                    </p>
+                </div>
+
+                <div class="method-card">
+                    <span>02</span>
+                    <h3>Coefficient of Variation</h3>
+                    <p>
+                        Measures RR variability relative to the local mean.
+                    </p>
+                </div>
+
+                <div class="method-card">
+                    <span>03</span>
+                    <h3>RMSSD</h3>
+                    <p>
+                        Measures short-term variation through successive
+                        differences between RR intervals.
+                    </p>
+                </div>
+
+                <div class="method-card">
+                    <span>04</span>
+                    <h3>Sample Entropy</h3>
+                    <p>
+                        Measures irregularity and the level of order within
+                        the RR sequence.
+                    </p>
+                </div>
+
+            </div>
+
+            <p>
+                The Random Forest consisted of 100 decision trees. Feature
+                vectors were extracted from windows of 100 RR intervals and
+                classified using the ensemble's majority decision.
+            </p>
+
+        </section>
+
+
+        <!-- Results -->
+        <section class="project-section">
+
+            <p class="section-number">05</p>
+
+            <h2>Evaluation & Results</h2>
+
+            <p>
+                The two approaches showed a clear sensitivity–specificity
+                trade-off. The CV detector was highly sensitive to AF but
+                produced more false positives, while the Random Forest was more
+                selective.
+            </p>
+
+            <h3 class="subheading">CV detector</h3>
+
+            <div class="results-table-wrapper">
+
+                <table class="results-table">
+
+                    <thead>
+                        <tr>
+                            <th>Patient</th>
+                            <th>Specificity</th>
+                            <th>Sensitivity</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>5</td>
+                            <td>0.970</td>
+                            <td>1.000</td>
+                        </tr>
+
+                        <tr>
+                            <td>6</td>
+                            <td>0.755</td>
+                            <td>1.000</td>
+                        </tr>
+
+                        <tr>
+                            <td>7</td>
+                            <td>0.941</td>
+                            <td>0.996</td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <p>
+                The detector identified almost all annotated AF intervals for
+                the three held-out patients, but specificity varied strongly
+                between recordings.
+            </p>
+
+
+            <h3 class="subheading">Random Forest</h3>
+
+            <div class="af-result-highlight">
+
+                <div>
+                    <strong>96.0%</strong>
+                    <span>Sensitivity</span>
+                </div>
+
+                <div>
+                    <strong>98.9%</strong>
+                    <span>Specificity</span>
+                </div>
+
+                <div>
+                    <strong>100</strong>
+                    <span>RR intervals / window</span>
+                </div>
+
+                <div>
+                    <strong>4</strong>
+                    <span>Extracted features</span>
+                </div>
+
+            </div>
+
+            <p>
+                For test patients 5–7 combined, the Random Forest with a
+                100-beat window achieved a sensitivity of 0.960 and a
+                specificity of 0.989.
+            </p>
+
+        </section>
+
+
+        <!-- Tradeoffs -->
+        <section class="project-section">
+
+            <p class="section-number">06</p>
+
+            <h2>Engineering Trade-offs</h2>
+
+            <p>
+                The project highlighted that better classification is not
+                defined by a single metric. A highly sensitive detector reduces
+                the risk of missing AF episodes, but may generate more false
+                alarms. A more selective classifier can reduce false positives,
+                but may miss true AF intervals.
+            </p>
+
+            <p>
+                Window length introduced another trade-off. Larger windows
+                produce more stable feature estimates, while shorter windows
+                provide better temporal resolution and may improve detection of
+                brief AF episodes.
+            </p>
+
+            <div class="highlight-box">
+
+                <span>Key insight</span>
+
+                <p>
+                    Adding more features and a more complex classifier did not
+                    automatically improve every aspect of performance.
+                    Evaluation on unseen patients revealed substantial
+                    patient-to-patient variation.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- Takeaways -->
+        <section class="project-section">
+
+            <p class="section-number">07</p>
+
+            <h2>Key Takeaways</h2>
+
+            <div class="method-grid">
+
+                <div class="method-card">
+                    <h3>Signal preprocessing</h3>
+                    <p>
+                        Applied median filtering and moving-window processing
+                        to physiological time-series data.
+                    </p>
+                </div>
+
+                <div class="method-card">
+                    <h3>Feature engineering</h3>
+                    <p>
+                        Extracted statistical, variability and entropy-based
+                        features from RR intervals.
+                    </p>
+                </div>
+
+                <div class="method-card">
+                    <h3>Model evaluation</h3>
+                    <p>
+                        Used ROC analysis, sensitivity and specificity to
+                        evaluate detection performance.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <div class="project-bottom-nav">
+            <a href="../index.html#projects">
+                ← Back to all projects
+            </a>
+        </div>
+
+    </main>
+
+
+    <footer>
+        <div class="container">
+            <p>© 2026 Philip Lundin</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
