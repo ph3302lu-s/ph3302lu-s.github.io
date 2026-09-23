@@ -4,7 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Real-Time Pitch Detection | Philip Lundin</title>
+
+    <meta name="description"
+          content="Real-time pitch detection using the YIN algorithm implemented in an Android game.">
 
     <link rel="stylesheet" href="../style.css">
 </head>
@@ -13,27 +17,422 @@
 
 <div class="container">
 
+    <!-- Navigation -->
     <nav>
         <div class="logo">
             <a href="../index.html">Philip Lundin</a>
         </div>
+
+        <div class="nav-links">
+            <a href="../index.html#projects">Projects</a>
+            <a href="../index.html#about">About</a>
+            <a href="../Philip_Lundin_CV.pdf" target="_blank">CV</a>
+            <a href="https://www.linkedin.com/in/philip-lundin-190a9a296/"
+               target="_blank">LinkedIn</a>
+        </div>
     </nav>
 
-    <main>
 
-        <section>
-            <a href="../index.html#projects">← Back to projects</a>
+    <main class="project-page">
+
+        <!-- Back -->
+        <a href="../index.html#projects" class="back-link">
+            ← Back to projects
+        </a>
+
+
+        <!-- Project Hero -->
+        <section class="project-hero">
+
+            <p class="hero-label">
+                Signal Processing Project · LTH · 2026
+            </p>
 
             <h1>Real-Time Pitch Detection</h1>
 
-            <p>
-                Signal Processing · YIN · Android
+            <p class="project-lead">
+                A real-time pitch detection system based on the YIN algorithm,
+                implemented on Android and used as the control mechanism for
+                an interactive mobile game.
             </p>
 
-            <h2>Project page coming soon.</h2>
+            <div class="tags project-tags">
+                <span class="tag">Signal Processing</span>
+                <span class="tag">YIN</span>
+                <span class="tag">Java</span>
+                <span class="tag">Android</span>
+                <span class="tag">Real-Time Audio</span>
+            </div>
+
         </section>
 
+
+        <!-- Overview -->
+        <section class="project-section">
+
+            <h2>Overview</h2>
+
+            <p>
+                The goal of the project was to investigate how smartphone audio
+                input could be used as an interactive control method. We developed
+                an Android game in which the player controls a moving bar using
+                the pitch of their voice: higher frequencies move the bar upward
+                and lower frequencies move it downward.
+            </p>
+
+            <p>
+                The central engineering challenge was therefore to estimate the
+                fundamental frequency of microphone input accurately and fast
+                enough for real-time interaction.
+            </p>
+
+            <div class="project-facts">
+
+                <div>
+                    <span class="fact-label">Course</span>
+                    <strong>Signal Processing Project</strong>
+                </div>
+
+                <div>
+                    <span class="fact-label">Platform</span>
+                    <strong>Android</strong>
+                </div>
+
+                <div>
+                    <span class="fact-label">Language</span>
+                    <strong>Java</strong>
+                </div>
+
+                <div>
+                    <span class="fact-label">Algorithm</span>
+                    <strong>YIN</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Problem -->
+        <section class="project-section">
+
+            <p class="section-number">01</p>
+            <h2>The Problem</h2>
+
+            <p>
+                Pitch corresponds to the fundamental frequency of a periodic
+                signal. A straightforward approach is to use autocorrelation:
+                a periodic signal resembles delayed versions of itself at lags
+                corresponding to its period.
+            </p>
+
+            <p>
+                In practice, simply selecting the strongest autocorrelation peak
+                is unreliable. Harmonics can produce strong peaks at multiples
+                of the true period, and signal energy also affects the magnitude
+                of the autocorrelation.
+            </p>
+
+            <div class="highlight-box">
+                <span>Design objective</span>
+                <strong>
+                    Detect vocal pitch reliably while keeping computation and
+                    latency low enough for smooth real-time gameplay.
+                </strong>
+            </div>
+
+        </section>
+
+
+        <!-- Method -->
+        <section class="project-section">
+
+            <p class="section-number">02</p>
+            <h2>Signal Processing Method</h2>
+
+            <p>
+                The pitch detector was based on the YIN fundamental-frequency
+                estimation algorithm. The implementation uses three main steps.
+            </p>
+
+
+            <div class="method-grid">
+
+                <div class="method-card">
+                    <span>1</span>
+                    <h3>Autocorrelation</h3>
+                    <p>
+                        The audio frame is compared with delayed versions of
+                        itself to identify periodic structure in the signal.
+                    </p>
+                </div>
+
+                <div class="method-card">
+                    <span>2</span>
+                    <h3>Difference Function</h3>
+                    <p>
+                        A squared-error measure is calculated between the
+                        original signal and shifted copies. Periodic matches
+                        appear as minima rather than peaks.
+                    </p>
+                </div>
+
+                <div class="method-card">
+                    <span>3</span>
+                    <h3>CMNDF</h3>
+                    <p>
+                        The error is normalized using the cumulative mean,
+                        reducing the bias toward short lags and making the
+                        fundamental period easier to identify.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <h3 class="subheading">Selecting the fundamental frequency</h3>
+
+            <p>
+                Choosing the global minimum of the normalized difference
+                function can result in octave errors because minima also occur
+                at multiples of the true period. Instead, the implementation
+                searches for the first local minimum below a threshold of
+                <strong>0.15</strong>.
+            </p>
+
+            <p>
+                Once the best lag is found, the pitch is calculated as:
+            </p>
+
+            <div class="equation">
+                frequency = sample rate / lag
+            </div>
+
+            <p>
+                The search was restricted to frequencies between approximately
+                70 Hz and 1000 Hz, reducing unnecessary computation and focusing
+                the algorithm on the relevant vocal-frequency range.
+            </p>
+
+        </section>
+
+
+        <!-- Implementation -->
+        <section class="project-section">
+
+            <p class="section-number">03</p>
+            <h2>Real-Time Implementation</h2>
+
+            <p>
+                Audio was captured directly from the smartphone microphone using
+                Android's AudioRecord interface. Incoming PCM samples were
+                accumulated into an audio buffer and processed continuously by
+                the pitch detector.
+            </p>
+
+            <div class="parameter-grid">
+
+                <div class="parameter">
+                    <strong>48 kHz</strong>
+                    <span>Sample rate</span>
+                </div>
+
+                <div class="parameter">
+                    <strong>2048</strong>
+                    <span>Window size</span>
+                </div>
+
+                <div class="parameter">
+                    <strong>4096</strong>
+                    <span>Audio buffer</span>
+                </div>
+
+                <div class="parameter">
+                    <strong>0.15</strong>
+                    <span>YIN threshold</span>
+                </div>
+
+            </div>
+
+            <p>
+                A noise threshold prevented very low-amplitude input from being
+                interpreted as a valid pitch. To make the game movement less
+                sensitive to individual estimates, groups of five pitch
+                detections were averaged before updating the player's position.
+            </p>
+
+
+            <div class="code-block">
+<pre><code>// Find first local minimum below the YIN threshold
+for (int lag = lowerBound + 1; lag &lt; upperBound; lag++) {
+
+    if (cmndf[lag] &lt; threshold
+            && cmndf[lag] &lt; cmndf[lag - 1]
+            && cmndf[lag] &lt;= cmndf[lag + 1]) {
+
+        return (float) SAMPLE_RATE / lag;
+    }
+}</code></pre>
+            </div>
+
+        </section>
+
+
+        <!-- Evaluation -->
+        <section class="project-section">
+
+            <p class="section-number">04</p>
+            <h2>Evaluation & Results</h2>
+
+            <p>
+                The implementation was evaluated both in terms of computational
+                performance and pitch-estimation accuracy. Different sample
+                rates, window sizes and audio-buffer sizes were tested to study
+                the trade-off between computational cost and smooth gameplay.
+            </p>
+
+
+            <h3 class="subheading">Real-time performance</h3>
+
+            <p>
+                The final configuration required approximately
+                <strong>16.72 ms</strong> per pitch detection. Increasing either
+                sample rate or window size produced an approximately linear
+                increase in execution time, giving an empirical complexity of
+                roughly:
+            </p>
+
+            <div class="equation">
+                O(sample rate × window size)
+            </div>
+
+            <p>
+                This processing time remained well below the 300 ms animation
+                interval used by the game and did not produce a noticeable
+                gameplay delay.
+            </p>
+
+
+            <h3 class="subheading">Pitch accuracy</h3>
+
+            <div class="results-table-wrapper">
+
+                <table class="results-table">
+
+                    <thead>
+                        <tr>
+                            <th>Note</th>
+                            <th>Detected</th>
+                            <th>Reference</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>D2</td>
+                            <td>74 Hz</td>
+                            <td>73.42 Hz</td>
+                        </tr>
+
+                        <tr>
+                            <td>A2</td>
+                            <td>110 Hz</td>
+                            <td>110 Hz</td>
+                        </tr>
+
+                        <tr>
+                            <td>A3</td>
+                            <td>221 Hz</td>
+                            <td>220 Hz</td>
+                        </tr>
+
+                        <tr>
+                            <td>A4</td>
+                            <td>442 Hz</td>
+                            <td>440 Hz</td>
+                        </tr>
+
+                        <tr>
+                            <td>A5</td>
+                            <td>889 Hz</td>
+                            <td>880 Hz</td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <p>
+                Across the tested range from D2 to A5, the detector tracked the
+                reference frequencies closely. Performance became unstable near
+                the algorithm's upper frequency boundary, illustrating the
+                effect of the deliberately restricted lag search.
+            </p>
+
+        </section>
+
+
+        <!-- Engineering Trade-offs -->
+        <section class="project-section">
+
+            <p class="section-number">05</p>
+            <h2>Engineering Trade-offs</h2>
+
+            <p>
+                The project highlighted that the most accurate signal-processing
+                configuration is not automatically the best real-time
+                configuration. Higher sample rates and larger windows provide
+                greater frequency resolution and smoother control, but increase
+                computational cost.
+            </p>
+
+            <p>
+                For this application, the final parameters were selected to
+                prioritize stable and responsive gameplay rather than
+                laboratory-grade frequency estimation.
+            </p>
+
+            <p>
+                One remaining limitation was sensitivity to background noise.
+                An amplitude threshold improved robustness, but reliable
+                operation still required a relatively quiet environment.
+            </p>
+
+        </section>
+
+
+        <!-- Takeaways -->
+        <section class="project-section takeaway-section">
+
+            <p class="section-number">06</p>
+            <h2>Key Takeaways</h2>
+
+            <p>
+                This project provided practical experience taking a signal
+                processing algorithm from theory to a real-time application:
+                deriving and implementing the pitch estimator, selecting
+                computational parameters, processing live microphone data,
+                evaluating performance and integrating the resulting signal
+                into an interactive Android application.
+            </p>
+
+        </section>
+
+
+        <div class="project-bottom-nav">
+            <a href="../index.html#projects">
+                ← Back to all projects
+            </a>
+        </div>
+
     </main>
+
+
+    <footer>
+        <p>© 2026 Philip Lundin</p>
+    </footer>
 
 </div>
 
