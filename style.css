@@ -509,3 +509,88 @@ footer {
 .gameplay-figure img {
     max-height: 700px;
 }
+/* AF Detection Project */
+
+.af-pipeline {
+    display: flex;
+    align-items: stretch;
+    gap: 12px;
+    margin: 45px 0;
+}
+
+.pipeline-step {
+    flex: 1;
+    background: #f6f8fb;
+    border: 1px solid #e1e5eb;
+    border-radius: 10px;
+    padding: 22px;
+}
+
+.pipeline-step > span {
+    display: block;
+    color: #2563eb;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.pipeline-step strong {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.pipeline-step p {
+    color: #6b7280;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.pipeline-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9ca3af;
+    font-size: 1.4rem;
+}
+
+.af-result-highlight {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin: 35px 0;
+}
+
+.af-result-highlight > div {
+    background: #f6f8fb;
+    border-radius: 10px;
+    padding: 25px 15px;
+    text-align: center;
+}
+
+.af-result-highlight strong {
+    display: block;
+    font-size: 1.8rem;
+    margin-bottom: 6px;
+    color: #172033;
+}
+
+.af-result-highlight span {
+    color: #6b7280;
+    font-size: 0.85rem;
+}
+
+@media (max-width: 800px) {
+
+    .af-pipeline {
+        flex-direction: column;
+    }
+
+    .pipeline-arrow {
+        transform: rotate(90deg);
+        padding: 2px;
+    }
+
+    .af-result-highlight {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
