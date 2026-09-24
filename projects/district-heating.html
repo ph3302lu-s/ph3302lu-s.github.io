@@ -1,1 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>District Heating Load Forecasting | Philip Lundin</title>
+
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+
+            <div class="logo">
+                <a href="../index.html">Philip Lundin</a>
+            </div>
+
+            <div class="nav-links">
+                <a href="../index.html#projects">Projects</a>
+                <a href="../index.html#about">About</a>
+                <a href="../Philip_Lundin_CV.pdf" target="_blank">CV</a>
+                <a href="https://www.linkedin.com/in/philip-lundin-190a9a296/"
+                   target="_blank">
+                    LinkedIn
+                </a>
+            </div>
+
+        </div>
+    </nav>
+
+
+    <main class="container project-page">
+
+        <a href="../index.html#projects" class="back-link">
+            ← Back to projects
+        </a>
+
+
+        <!-- Hero -->
+        <section class="project-hero">
+
+            <p class="eyebrow">
+                Time Series Analysis · LTH · 2026
+            </p>
+
+            <h1>District Heating Load Forecasting</h1>
+
+            <p class="project-lead">
+                Forecasting hourly district-heating demand using
+                Box–Jenkins models with ambient and supply-water
+                temperature as external inputs.
+            </p>
+
+            <div class="tags project-tags">
+                <span class="tag">Time Series</span>
+                <span class="tag">Box–Jenkins</span>
+                <span class="tag">System Identification</span>
+                <span class="tag">MATLAB</span>
+                <span class="tag">Forecasting</span>
+            </div>
+
+        </section>
+
+
+        <!-- Overview -->
+        <section class="project-section">
+
+            <p class="section-number">OVERVIEW</p>
+
+            <h2>Predicting heat demand from temperature data</h2>
+
+            <p>
+                The project focused on predicting the load of a district
+                heating system in Esbjerg, Denmark. The available dataset
+                contained 5000 hourly observations of district-heating load,
+                ambient air temperature and supply-water temperature.
+            </p>
+
+            <p>
+                Two Box–Jenkins models were developed. The first used ambient
+                temperature as the only external input, while the second added
+                supply-water temperature to investigate whether additional
+                system information improved forecasting performance.
+            </p>
+
+            <div class="project-facts">
+
+                <div>
+                    <span class="fact-label">Course</span>
+                    Time Series Analysis
+                </div>
+
+                <div>
+                    <span class="fact-label">Sampling</span>
+                    Hourly
+                </div>
+
+                <div>
+                    <span class="fact-label">Method</span>
+                    Box–Jenkins
+                </div>
+
+                <div>
+                    <span class="fact-label">Software</span>
+                    MATLAB
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Problem -->
+        <section class="project-section">
+
+            <p class="section-number">01</p>
+
+            <h2>The Forecasting Problem</h2>
+
+            <p>
+                District-heating demand varies strongly over time and is
+                influenced by external conditions such as outdoor temperature.
+                The goal was to build a dynamic model capable of predicting
+                future load while accounting for both temporal structure in the
+                load signal and the influence of external temperature inputs.
+            </p>
+
+            <div class="highlight-box">
+
+                <span>Engineering challenge</span>
+
+                <p>
+                    The model needed to capture daily seasonality, short-term
+                    dynamics and temperature-driven changes while still
+                    generalizing to time periods and seasons that were not used
+                    for model estimation.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- Data -->
+        <section class="project-section">
+
+            <p class="section-number">02</p>
+
+            <h2>Data & Evaluation Strategy</h2>
+
+            <p>
+                The time series were divided chronologically rather than
+                randomly so that model performance could be evaluated on future
+                observations.
+            </p>
+
+            <div class="data-split-grid">
+
+                <div class="data-split-card">
+                    <span>Model</span>
+                    <strong>2000–3300</strong>
+                    <p>Approximately 7.7 weeks used for model estimation.</p>
+                </div>
+
+                <div class="data-split-card">
+                    <span>Validation</span>
+                    <strong>3301–3600</strong>
+                    <p>Used for model selection and forecasting evaluation.</p>
+                </div>
+
+                <div class="data-split-card">
+                    <span>Test 1</span>
+                    <strong>3601–3768</strong>
+                    <p>One-week test period directly following validation.</p>
+                </div>
+
+                <div class="data-split-card">
+                    <span>Test 2</span>
+                    <strong>4400–4568</strong>
+                    <p>A second one-week period from a different season.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Analysis -->
+        <section class="project-section">
+
+            <p class="section-number">03</p>
+
+            <h2>Time-Series Analysis</h2>
+
+            <p>
+                Autocorrelation and partial autocorrelation analysis were used
+                to identify temporal structure in the signals. The ambient
+                temperature displayed strong daily behaviour, motivating
+                seasonal model terms around lag 24.
+            </p>
+
+            <p>
+                Similar analysis of the district-heating load showed both
+                short-term dependence and daily seasonality. Candidate model
+                structures were evaluated using residual autocorrelation,
+                input–residual cross-correlation and forecasting performance.
+            </p>
+
+            <div class="timeseries-pipeline">
+
+                <div class="pipeline-step">
+                    <span>01</span>
+                    <strong>Inspect signals</strong>
+                    <p>Load and temperature time series.</p>
+                </div>
+
+                <div class="pipeline-arrow">→</div>
+
+                <div class="pipeline-step">
+                    <span>02</span>
+                    <strong>ACF / PACF</strong>
+                    <p>Identify dynamics and daily seasonality.</p>
+                </div>
+
+                <div class="pipeline-arrow">→</div>
+
+                <div class="pipeline-step">
+                    <span>03</span>
+                    <strong>Estimate model</strong>
+                    <p>Fit polynomial models using PEM.</p>
+                </div>
+
+                <div class="pipeline-arrow">→</div>
+
+                <div class="pipeline-step">
+                    <span>04</span>
+                    <strong>Validate</strong>
+                    <p>Residuals, correlations and forecasts.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Box Jenkins -->
+        <section class="project-section">
+
+            <p class="section-number">04</p>
+
+            <h2>Box–Jenkins Modelling</h2>
+
+            <p>
+                The first model used ambient temperature as an exogenous input.
+                A separate time-series model was first estimated for the
+                temperature so that future temperature values could be
+                predicted during multi-step load forecasting.
+            </p>
+
+            <div class="equation">
+                y(t) =
+                B(z) / A₂(z) · u(t − d)
+                +
+                C(z) / A₁(z) · e(t)
+            </div>
+
+            <p>
+                The transfer-function component models how ambient temperature
+                affects heating load, while the noise model captures dynamics
+                in the load that are not explained by the external input.
+            </p>
+
+            <p>
+                Daily seasonality was incorporated using polynomial terms near
+                lag 24. Model parameters were estimated in MATLAB using
+                prediction-error methods, and candidate structures were
+                compared using residual diagnostics and validation forecasts.
+            </p>
+
+        </section>
+
+
+        <!-- Forecasting -->
+        <section class="project-section">
+
+            <p class="section-number">05</p>
+
+            <h2>1-Step & 7-Step Forecasting</h2>
+
+            <p>
+                The final models were evaluated for both short-term 1-step
+                predictions and more challenging 7-step predictions. Forecasts
+                were compared against a naive persistence predictor.
+            </p>
+
+            <h3 class="subheading">Ambient-temperature model: Part A</h3>
+
+            <div class="results-table-wrapper">
+
+                <table class="results-table">
+
+                    <thead>
+                        <tr>
+                            <th>Dataset</th>
+                            <th>Naive 1-step</th>
+                            <th>Model 1-step</th>
+                            <th>Naive 7-step</th>
+                            <th>Model 7-step</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>Validation</td>
+                            <td>0.129</td>
+                            <td>0.0647</td>
+                            <td>1.128</td>
+                            <td>0.847</td>
+                        </tr>
+
+                        <tr>
+                            <td>Test 1</td>
+                            <td>0.216</td>
+                            <td>0.146</td>
+                            <td>1.169</td>
+                            <td>0.993</td>
+                        </tr>
+
+                        <tr>
+                            <td>Test 2</td>
+                            <td>0.202</td>
+                            <td>0.120</td>
+                            <td>0.693</td>
+                            <td>0.685</td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <p class="table-note">
+                Normalized prediction-error variance. Lower values indicate
+                better prediction performance.
+            </p>
+
+            <p>
+                The model consistently improved on the naive baseline for
+                1-step predictions. The advantage became much smaller for
+                7-step forecasting, particularly on the two test periods.
+            </p>
+
+        </section>
+
+
+        <!-- Second input -->
+        <section class="project-section">
+
+            <p class="section-number">06</p>
+
+            <h2>Adding Supply-Water Temperature</h2>
+
+            <p>
+                The second model added supply-water temperature as an additional
+                external input. In principle this provides more information
+                about the heating system, but it also made the modelling problem
+                considerably more complex.
+            </p>
+
+            <p>
+                The supply-water temperature contained changing mean levels and
+                large transitions. Mean removal was therefore introduced before
+                modelling this input, and the final multivariate Box–Jenkins
+                model contained separate transfer functions for the two
+                temperature signals.
+            </p>
+
+            <div class="model-comparison-grid">
+
+                <div class="model-comparison-card">
+                    <span>Part A</span>
+                    <h3>1 external input</h3>
+                    <p>
+                        Ambient air temperature.
+                    </p>
+                </div>
+
+                <div class="comparison-versus">
+                    VS
+                </div>
+
+                <div class="model-comparison-card">
+                    <span>Part B</span>
+                    <h3>2 external inputs</h3>
+                    <p>
+                        Ambient temperature + supply-water temperature.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="highlight-box">
+
+                <span>Unexpected result</span>
+
+                <p>
+                    Adding the second input did not improve generalization.
+                    The simpler ambient-temperature model performed better
+                    across all ranges in the hidden server benchmark.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- Why -->
+        <section class="project-section">
+
+            <p class="section-number">07</p>
+
+            <h2>Why More Data Did Not Mean a Better Model</h2>
+
+            <p>
+                Ambient temperature and supply-water temperature were strongly
+                negatively correlated, with a correlation coefficient of
+                approximately −0.83. This meant that much of the information
+                carried by supply-water temperature was already represented by
+                ambient temperature.
+            </p>
+
+            <p>
+                The second input also introduced sharp transitions and changes
+                in mean level. As a result, the additional input increased
+                model complexity without consistently adding useful predictive
+                information.
+            </p>
+
+            <div class="highlight-box">
+
+                <span>Key modelling lesson</span>
+
+                <p>
+                    A more complex model is not automatically a better
+                    predictor. Additional variables must provide useful
+                    independent information and improve performance on unseen
+                    data.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- Generalization -->
+        <section class="project-section">
+
+            <p class="section-number">08</p>
+
+            <h2>Generalization & Limitations</h2>
+
+            <p>
+                Both models were able to follow the overall dynamics of the
+                heating load, but longer-horizon forecasts struggled with rapid
+                changes in amplitude. The 7-step predictions therefore provided
+                much less improvement over the naive baseline than the 1-step
+                predictions.
+            </p>
+
+            <p>
+                Hidden server testing further showed that neither model
+                consistently outperformed the naive predictor on every data
+                range. The ambient-temperature-only model nevertheless
+                generalized better than the more complex two-input model.
+            </p>
+
+        </section>
+
+
+        <!-- Takeaways -->
+        <section class="project-section">
+
+            <p class="section-number">09</p>
+
+            <h2>Key Takeaways</h2>
+
+            <div class="method-grid">
+
+                <div class="method-card">
+                    <h3>System identification</h3>
+
+                    <p>
+                        Used ACF, PACF, cross-correlation and residual analysis
+                        to identify dynamic model structures.
+                    </p>
+                </div>
+
+                <div class="method-card">
+                    <h3>Multi-step prediction</h3>
+
+                    <p>
+                        Implemented 1-step and 7-step predictors using
+                        polynomial division and dynamic filtering.
+                    </p>
+                </div>
+
+                <div class="method-card">
+                    <h3>Model validation</h3>
+
+                    <p>
+                        Compared models against naive baselines across
+                        validation, test and hidden benchmark data.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <div class="project-bottom-nav">
+            <a href="../index.html#projects">
+                ← Back to all projects
+            </a>
+        </div>
+
+    </main>
+
+
+    <footer>
+        <div class="container">
+            <p>© 2026 Philip Lundin</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
