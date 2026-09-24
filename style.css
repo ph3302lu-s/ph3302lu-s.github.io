@@ -709,3 +709,29 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+/* DSP & OFDM Project */
+
+.dsp-flow,
+.ofdm-pipeline {
+    display: flex;
+    align-items: stretch;
+    gap: 12px;
+    margin: 45px 0;
+}
+
+.ofdm-pipeline .pipeline-step {
+    padding: 20px 16px;
+}
+
+@media (max-width: 900px) {
+
+    .dsp-flow,
+    .ofdm-pipeline {
+        flex-direction: column;
+    }
+
+    .dsp-flow .pipeline-arrow,
+    .ofdm-pipeline .pipeline-arrow {
+        transform: rotate(90deg);
+    }
+}
