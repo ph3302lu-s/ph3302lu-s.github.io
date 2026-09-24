@@ -178,7 +178,19 @@
                 </div>
 
             </div>
+<figure class="project-figure">
 
+    <img
+        src="../images/dsp-ofdm/dsp_filter_comparison.png"
+        alt="Comparison of original and filtered power spectral density after notch filtering">
+
+    <figcaption>
+        Comparison of the original and filtered spectrum. The notch
+        filter removes the dominant disturbance components while
+        preserving the remaining spectral content.
+    </figcaption>
+
+</figure>
             <div class="highlight-box">
 
                 <span>Key observation</span>
@@ -292,7 +304,20 @@
                 recovered waveform matched the original signal closely and
                 the echo was no longer audible.
             </p>
+<figure class="project-figure">
 
+    <img
+        src="../images/dsp-ofdm/dsp_echo_recovery_composite.png"
+        alt="Original speech signal, echo-corrupted signal and recovered signal after inverse filtering">
+
+    <figcaption>
+        Original speech signal, the same signal after echo corruption,
+        and the recovered signal after inverse filtering. The inverse
+        system removes the delayed reflection effectively when the echo
+        model is known.
+    </figcaption>
+
+</figure>
             <div class="highlight-box">
 
                 <span>Stability</span>
@@ -456,7 +481,19 @@
             <div class="equation">
                 X̂(k) = Y(k) / H(k)
             </div>
+<figure class="project-figure">
 
+    <img
+        src="../images/dsp-ofdm/ofdm_equalization_result.png"
+        alt="OFDM equalization results for different multipath channel coefficients">
+
+    <figcaption>
+        OFDM equalization results for different channel conditions.
+        After DFT-domain equalization, the recovered output matches
+        the input sequence for the tested reflection coefficients.
+    </figcaption>
+
+</figure>
         </section>
 
 
