@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Digital Signal Processing & OFDM | Philip Lundin</title>
+
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+
+            <div class="logo">
+                <a href="../index.html">Philip Lundin</a>
+            </div>
+
+            <div class="nav-links">
+                <a href="../index.html#projects">Projects</a>
+                <a href="../index.html#about">About</a>
+                <a href="../Philip_Lundin_CV.pdf" target="_blank">CV</a>
+                <a href="https://www.linkedin.com/in/philip-lundin-190a9a296/"
+                   target="_blank">
+                    LinkedIn
+                </a>
+            </div>
+
+        </div>
+    </nav>
+
+
+    <main class="container project-page">
+
+        <a href="../index.html#projects" class="back-link">
+            ← Back to projects
+        </a>
+
+
+        <!-- Hero -->
+        <section class="project-hero">
+
+            <p class="eyebrow">
+                Digital Signal Processing · LTH · 2024
+            </p>
+
+            <h1>Digital Signal Processing & OFDM</h1>
+
+            <p class="project-lead">
+                Design and analysis of digital filters, inverse filtering,
+                multipath-channel equalization and an OFDM communication
+                system implemented in MATLAB.
+            </p>
+
+            <div class="tags project-tags">
+                <span class="tag">DSP</span>
+                <span class="tag">FIR / IIR</span>
+                <span class="tag">OFDM</span>
+                <span class="tag">MATLAB</span>
+                <span class="tag">Digital Communications</span>
+            </div>
+
+        </section>
+
+
+        <!-- Overview -->
+        <section class="project-section">
+
+            <p class="section-number">OVERVIEW</p>
+
+            <h2>From filter design to multicarrier communication</h2>
+
+            <p>
+                This project combined several core digital signal processing
+                concepts. The first part focused on frequency-domain analysis,
+                FIR and IIR filter design, disturbance removal and inverse
+                filtering of echo-corrupted audio.
+            </p>
+
+            <p>
+                The second part applied the same system perspective to a
+                digital communication channel with multipath propagation.
+                Equalization was first studied directly in the time domain
+                before implementing an OFDM system using the DFT, IDFT,
+                cyclic prefix and frequency-domain equalization.
+            </p>
+
+            <div class="project-facts">
+
+                <div>
+                    <span class="fact-label">Course</span>
+                    Digital Signal Processing
+                </div>
+
+                <div>
+                    <span class="fact-label">Software</span>
+                    MATLAB
+                </div>
+
+                <div>
+                    <span class="fact-label">Topics</span>
+                    Filters & Equalization
+                </div>
+
+                <div>
+                    <span class="fact-label">Communication</span>
+                    OFDM
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Filtering -->
+        <section class="project-section">
+
+            <p class="section-number">01</p>
+
+            <h2>FIR & IIR Notch Filtering</h2>
+
+            <p>
+                A tonal disturbance at one quarter of the sampling frequency
+                was removed by placing zeros at the corresponding points on
+                the unit circle:
+            </p>
+
+            <div class="equation">
+                z = ±j
+            </div>
+
+            <p>
+                This resulted in a second-order FIR notch filter with zero
+                gain at the disturbance frequency. The filter successfully
+                removed the unwanted component, but also attenuated nearby
+                frequencies and therefore affected the perceived audio quality.
+            </p>
+
+            <h3 class="subheading">Narrowing the notch with an IIR filter</h3>
+
+            <p>
+                A second-order IIR filter was then designed by placing poles
+                close to the zeros at a radius of 0.95. The nearby poles
+                compensate for attenuation away from the exact disturbance
+                frequency, producing a much narrower notch.
+            </p>
+
+            <div class="model-comparison-grid">
+
+                <div class="model-comparison-card">
+                    <span>FIR</span>
+
+                    <h3>Zeros only</h3>
+
+                    <p>
+                        Completely removes the tonal disturbance, but
+                        noticeably attenuates nearby frequencies.
+                    </p>
+                </div>
+
+                <div class="comparison-versus">
+                    VS
+                </div>
+
+                <div class="model-comparison-card">
+                    <span>IIR</span>
+
+                    <h3>Zeros + nearby poles</h3>
+
+                    <p>
+                        Maintains the notch while reducing the effect on
+                        neighbouring frequencies.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="highlight-box">
+
+                <span>Key observation</span>
+
+                <p>
+                    Both filters removed the disturbance, but the IIR notch
+                    filter preserved the surrounding audio spectrum more
+                    effectively.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- Audio -->
+        <section class="project-section">
+
+            <p class="section-number">02</p>
+
+            <h2>Audio Signal Processing</h2>
+
+            <p>
+                Audio signals were analysed in both the time and frequency
+                domains. A moving-average filter was used to demonstrate the
+                relationship between time-domain smoothing and attenuation of
+                high-frequency components.
+            </p>
+
+            <p>
+                Experiments were also performed with additive white Gaussian
+                noise. The moving-average filter reduced high-frequency
+                content but was not effective as a general noise-removal
+                method because the noise energy was spread across the spectrum.
+            </p>
+
+            <div class="dsp-flow">
+
+                <div class="pipeline-step">
+                    <span>01</span>
+                    <strong>Audio signal</strong>
+                    <p>Analyse the signal in time and frequency.</p>
+                </div>
+
+                <div class="pipeline-arrow">→</div>
+
+                <div class="pipeline-step">
+                    <span>02</span>
+                    <strong>Identify disturbance</strong>
+                    <p>Locate unwanted spectral components.</p>
+                </div>
+
+                <div class="pipeline-arrow">→</div>
+
+                <div class="pipeline-step">
+                    <span>03</span>
+                    <strong>Place poles & zeros</strong>
+                    <p>Design the desired frequency response.</p>
+                </div>
+
+                <div class="pipeline-arrow">→</div>
+
+                <div class="pipeline-step">
+                    <span>04</span>
+                    <strong>Filter</strong>
+                    <p>Suppress the unwanted frequency components.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Echo -->
+        <section class="project-section">
+
+            <p class="section-number">03</p>
+
+            <h2>Echo Modelling & Inverse Filtering</h2>
+
+            <p>
+                An echo was modelled as a delayed and attenuated copy of the
+                original signal added to the direct signal:
+            </p>
+
+            <div class="equation">
+                y(n) = x(n) + αx(n − D)
+            </div>
+
+            <p>
+                The corresponding system function is:
+            </p>
+
+            <div class="equation">
+                H(z) = 1 + αz<sup>−D</sup>
+            </div>
+
+            <p>
+                If the echo system is known, its effect can be cancelled by
+                applying the inverse system:
+            </p>
+
+            <div class="equation">
+                H<sub>inv</sub>(z) =
+                1 / (1 + αz<sup>−D</sup>)
+            </div>
+
+            <p>
+                The inverse filter was tested on a speech recording where a
+                delayed reflection was introduced. After filtering, the
+                recovered waveform matched the original signal closely and
+                the echo was no longer audible.
+            </p>
+
+            <div class="highlight-box">
+
+                <span>Stability</span>
+
+                <p>
+                    The inverse filter poles have magnitude
+                    |α|<sup>1/D</sup>. The inverse system is therefore unstable
+                    when |α| &gt; 1.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- Channel -->
+        <section class="project-section">
+
+            <p class="section-number">04</p>
+
+            <h2>Multipath Communication Channel</h2>
+
+            <p>
+                The communication part modelled a channel containing a direct
+                signal and one delayed reflection. With a one-sample delay,
+                the received signal was described by:
+            </p>
+
+            <div class="equation">
+                r(n) = s(n) + αs(n − 1)
+            </div>
+
+            <p>
+                giving the channel system function:
+            </p>
+
+            <div class="equation">
+                H(z) = 1 + αz<sup>−1</sup>
+            </div>
+
+            <p>
+                Binary data was mapped to ±1 symbols and transmitted through
+                the channel for several reflection coefficients. Without
+                noise, the original bits could be recovered from the sign of
+                the received samples.
+            </p>
+
+            <p>
+                Adding Gaussian noise exposed a weakness of this simple
+                detection strategy. For the most severe tested channel,
+                α = −0.99, the received samples could approach zero and noise
+                could change their sign, producing bit errors.
+            </p>
+
+        </section>
+
+
+        <!-- Equalization -->
+        <section class="project-section">
+
+            <p class="section-number">05</p>
+
+            <h2>Channel Equalization</h2>
+
+            <p>
+                If the channel response is known, its effect can theoretically
+                be removed by applying the inverse channel response:
+            </p>
+
+            <div class="equation">
+                H<sub>eq</sub>(z) = 1 / H(z)
+            </div>
+
+            <p>
+                Both transmitter-side and receiver-side processing were
+                investigated. In the noise-free case, both methods restored
+                the transmitted signal.
+            </p>
+
+            <p>
+                Receiver equalization is more practical when the channel must
+                be estimated from the received signal. However, noise is also
+                present at the receiver and can be affected by the inverse
+                filter, making direct equalization less robust for difficult
+                channel conditions.
+            </p>
+
+        </section>
+
+
+        <!-- OFDM -->
+        <section class="project-section">
+
+            <p class="section-number">06</p>
+
+            <h2>OFDM & Frequency-Domain Equalization</h2>
+
+            <p>
+                The final part implemented an OFDM system. Instead of
+                equalizing the full channel directly in the time domain, the
+                transmitted block was transformed using an inverse DFT.
+            </p>
+
+            <div class="ofdm-pipeline">
+
+                <div class="pipeline-step">
+                    <span>01</span>
+                    <strong>Data symbols</strong>
+                    <p>Binary information mapped to signal values.</p>
+                </div>
+
+                <div class="pipeline-arrow">→</div>
+
+                <div class="pipeline-step">
+                    <span>02</span>
+                    <strong>IDFT</strong>
+                    <p>Convert frequency-domain symbols to a time-domain block.</p>
+                </div>
+
+                <div class="pipeline-arrow">→</div>
+
+                <div class="pipeline-step">
+                    <span>03</span>
+                    <strong>Cyclic prefix</strong>
+                    <p>Add a copy of the final sample before transmission.</p>
+                </div>
+
+                <div class="pipeline-arrow">→</div>
+
+                <div class="pipeline-step">
+                    <span>04</span>
+                    <strong>Multipath channel</strong>
+                    <p>Transmit the block through the delayed channel.</p>
+                </div>
+
+                <div class="pipeline-arrow">→</div>
+
+                <div class="pipeline-step">
+                    <span>05</span>
+                    <strong>DFT + equalization</strong>
+                    <p>Remove the channel independently in each frequency bin.</p>
+                </div>
+
+            </div>
+
+            <p>
+                The cyclic prefix converts the relevant part of the channel
+                operation into circular convolution. After applying the DFT,
+                convolution becomes multiplication:
+            </p>
+
+            <div class="equation">
+                Y(k) = H(k)X(k)
+            </div>
+
+            <p>
+                Equalization can therefore be performed independently for each
+                frequency component:
+            </p>
+
+            <div class="equation">
+                X̂(k) = Y(k) / H(k)
+            </div>
+
+        </section>
+
+
+        <!-- Results -->
+        <section class="project-section">
+
+            <p class="section-number">07</p>
+
+            <h2>Noise Robustness & Bit Recovery</h2>
+
+            <p>
+                The OFDM implementation was tested using the same channel
+                conditions as the earlier direct equalization experiments.
+                White Gaussian noise was added before bit recovery.
+            </p>
+
+            <div class="results-table-wrapper">
+
+                <table class="results-table">
+
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Channel condition</th>
+                            <th>Observation</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>Direct receiver processing</td>
+                            <td>α = −0.99 + noise</td>
+                            <td>Bit errors occurred</td>
+                        </tr>
+
+                        <tr>
+                            <td>OFDM equalization</td>
+                            <td>All tested α values + noise</td>
+                            <td>Bits recovered without errors</td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <p>
+                In the reported experiment, the OFDM approach recovered the
+                transmitted bits without errors for all tested reflection
+                coefficients at the chosen noise level. This demonstrated the
+                advantage of converting the multipath channel into
+                frequency-domain scalar subchannels before equalization.
+            </p>
+
+        </section>
+
+
+        <!-- Takeaways -->
+        <section class="project-section">
+
+            <p class="section-number">08</p>
+
+            <h2>Key Takeaways</h2>
+
+            <div class="method-grid">
+
+                <div class="method-card">
+
+                    <h3>Filter design</h3>
+
+                    <p>
+                        Designed FIR and IIR notch filters through deliberate
+                        placement of poles and zeros in the z-plane.
+                    </p>
+
+                </div>
+
+                <div class="method-card">
+
+                    <h3>Inverse systems</h3>
+
+                    <p>
+                        Modelled echoes and multipath channels and used inverse
+                        filtering to compensate for known system responses.
+                    </p>
+
+                </div>
+
+                <div class="method-card">
+
+                    <h3>OFDM</h3>
+
+                    <p>
+                        Implemented IDFT/DFT processing, cyclic prefix and
+                        frequency-domain channel equalization.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <div class="project-bottom-nav">
+
+            <a href="../index.html#projects">
+                ← Back to all projects
+            </a>
+
+        </div>
+
+    </main>
+
+
+    <footer>
+        <div class="container">
+            <p>© 2026 Philip Lundin</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
