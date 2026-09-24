@@ -381,35 +381,64 @@
 
             <h3 class="subheading">Random Forest</h3>
 
-            <div class="af-result-highlight">
+<div class="results-table-wrapper">
 
-                <div>
-                    <strong>96.0%</strong>
-                    <span>Sensitivity</span>
-                </div>
+    <table class="results-table">
 
-                <div>
-                    <strong>98.9%</strong>
-                    <span>Specificity</span>
-                </div>
+        <thead>
+            <tr>
+                <th>Patient</th>
+                <th>Specificity</th>
+                <th>Sensitivity</th>
+            </tr>
+        </thead>
 
-                <div>
-                    <strong>100</strong>
-                    <span>RR intervals / window</span>
-                </div>
+        <tbody>
+            <tr>
+                <td>5</td>
+                <td>1.000</td>
+                <td>0.588</td>
+            </tr>
 
-                <div>
-                    <strong>4</strong>
-                    <span>Extracted features</span>
-                </div>
+            <tr>
+                <td>6</td>
+                <td>0.985</td>
+                <td>0.940</td>
+            </tr>
 
-            </div>
+            <tr>
+                <td>7</td>
+                <td>1.000</td>
+                <td>0.981</td>
+            </tr>
+        </tbody>
 
-            <p>
-                For test patients 5–7 combined, the Random Forest with a
-                100-beat window achieved a sensitivity of 0.960 and a
-                specificity of 0.989.
-            </p>
+    </table>
+
+</div>
+
+<p>
+    The Random Forest achieved very high specificity for all three
+    held-out patients, but sensitivity varied substantially between
+    recordings. Patient 5 was particularly challenging, with a
+    sensitivity of only 0.588, showing that the pooled test result
+    masks important patient-to-patient differences.
+</p>
+
+<div class="highlight-box">
+
+    <span>Window-size trade-off</span>
+
+    <p>
+        Patient 5 contained relatively short AF episodes. Reducing the
+        Random Forest window size from 100 to 50 RR intervals improved
+        sensitivity for patient 5 from 0.588 to 0.787. However, the
+        pooled sensitivity for patients 5–7 decreased from 0.960 to
+        0.909, illustrating the trade-off between temporal resolution
+        and more stable feature estimation.
+    </p>
+
+</div>
 
         </section>
 
