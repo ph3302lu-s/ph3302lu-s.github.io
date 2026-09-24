@@ -594,3 +594,118 @@ footer {
         grid-template-columns: repeat(2, 1fr);
     }
 }
+/* District Heating Project */
+
+.data-split-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin: 40px 0;
+}
+
+.data-split-card {
+    background: #f6f8fb;
+    border: 1px solid #e1e5eb;
+    border-radius: 10px;
+    padding: 22px;
+}
+
+.data-split-card > span {
+    display: block;
+    color: #2563eb;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.data-split-card strong {
+    display: block;
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+}
+
+.data-split-card p {
+    color: #6b7280;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.timeseries-pipeline {
+    display: flex;
+    align-items: stretch;
+    gap: 12px;
+    margin: 45px 0;
+}
+
+.model-comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 25px;
+    align-items: center;
+    margin: 40px 0;
+}
+
+.model-comparison-card {
+    background: #f6f8fb;
+    border: 1px solid #e1e5eb;
+    border-radius: 10px;
+    padding: 30px;
+}
+
+.model-comparison-card > span {
+    color: #2563eb;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.model-comparison-card h3 {
+    margin: 8px 0 10px;
+}
+
+.model-comparison-card p {
+    color: #6b7280;
+}
+
+.comparison-versus {
+    color: #9ca3af;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.table-note {
+    color: #6b7280 !important;
+    font-size: 0.85rem !important;
+    margin-top: 10px;
+}
+
+@media (max-width: 800px) {
+
+    .data-split-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .timeseries-pipeline {
+        flex-direction: column;
+    }
+
+    .timeseries-pipeline .pipeline-arrow {
+        transform: rotate(90deg);
+    }
+
+    .model-comparison-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .comparison-versus {
+        text-align: center;
+    }
+}
+
+@media (max-width: 500px) {
+
+    .data-split-grid {
+        grid-template-columns: 1fr;
+    }
+}
