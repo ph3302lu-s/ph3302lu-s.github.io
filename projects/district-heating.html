@@ -158,7 +158,19 @@
                 randomly so that model performance could be evaluated on future
                 observations.
             </p>
+<figure class="project-figure">
 
+    <img
+        src="../images/district-heating/district_heating_overview.png"
+        alt="District heating load and ambient temperature over the full dataset">
+
+    <figcaption>
+        Full dataset containing hourly district-heating load and ambient
+        temperature. The changing operating conditions motivated a
+        chronological train, validation and test split.
+    </figcaption>
+
+</figure>
             <div class="data-split-grid">
 
                 <div class="data-split-card">
@@ -356,7 +368,19 @@
                 1-step predictions. The advantage became much smaller for
                 7-step forecasting, particularly on the two test periods.
             </p>
+<figure class="project-figure">
 
+    <img
+        src="../images/district-heating/district_heating_7step_forecast.png"
+        alt="Seven-step district heating load forecast compared with true load and naive prediction">
+
+    <figcaption>
+        7-step forecast on the first test period. The Box–Jenkins
+        predictor captures much of the load dynamics, but struggles
+        to adapt quickly to large changes in amplitude.
+    </figcaption>
+
+</figure>
         </section>
 
 
